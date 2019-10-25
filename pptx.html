@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charSet="utf-8"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>Worship Powerpoint</title>
+<style>
+* { box-sizing: border-box }
+html, body { height: 100%; }
+body {
+    width: 80%;
+    margin: 0 auto;
+    font-family: "Lato", sans-serif;
+}
+section {
+    display: grid;
+    align-items: stretch;
+    height: calc(100% - 20px);
+    grid-template-rows: min-content auto 50px;
+}
+textarea {
+    padding: 10px 0;
+    border: none;
+    text-align: center;
+    font-size: 24px;
+    width: 100%;
+    height: calc(100% - 2px);
+    resize: none;
+}
+.container { overflow: auto; }
+.btn {
+    background-color: #1c97f3;
+    border: none;
+    color: white;
+    padding: 8px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+	border:1px solid #186dad;
+}
+.right { position: relative; left: 50%; }
+
+/* Style the tab */
+.tab {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 20%;
+    height: 100%;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    float: left;
+    /*padding: 0px 10px;*/
+    border: 1px solid #ccc;
+    width: 80%;
+    border-left: none;
+    height: 100%;
+}
+</style>
+</head>
+<body>
+    <section>
+      <header>
+        <h1>Worship Powerpoint</h1>
+      </header>
+
+      <div class="container">
+        <div class="tab">
+          <button class="tablinks" onclick="openTab(event, 'tab0')" id="defaultOpen">圣诗一</button>
+          <button class="tablinks" onclick="openTab(event, 'tab1')">圣诗二</button>
+          <button class="tablinks" onclick="openTab(event, 'tab2')">圣诗三</button>
+          <button class="tablinks" onclick="openTab(event, 'tab3')">牧者之祷</button>
+          <button class="tablinks" onclick="openTab(event, 'tab4')">今日经课</button>
+          <button class="tablinks" onclick="openTab(event, 'tab5')">献诗</button>
+          <button class="tablinks" onclick="openTab(event, 'tab6')">赞美诗</button>
+          <button class="tablinks" onclick="openTab(event, 'tab7')">证道</button>
+          <button class="tablinks" onclick="openTab(event, 'tab8')">圣餐</button>
+          <button class="tablinks" onclick="openTab(event, 'tab9')">回应诗</button>
+        </div>
+
+        <div id="tab0" class="tabcontent"><textarea></textarea></div>
+        <div id="tab1" class="tabcontent"><textarea></textarea></div>
+        <div id="tab2" class="tabcontent"><textarea></textarea></div>
+        <div id="tab3" class="tabcontent"><textarea>牧者之禱</textarea></div>
+        <div id="tab4" class="tabcontent"><textarea>今日經課</textarea></div>
+        <div id="tab5" class="tabcontent"><textarea></textarea></div>
+        <div id="tab6" class="tabcontent"><textarea></textarea></div>
+        <div id="tab7" class="tabcontent"><textarea>證 道：吳荔峰牧師</textarea></div>
+        <div id="tab8" class="tabcontent"><textarea>聖 餐</textarea></div>
+        <div id="tab9" class="tabcontent"><textarea></textarea></div>
+      </div>
+
+      <footer style="margin-top: 10px;">
+         <button class="btn right" id="download">Download &nbsp;&#x2714;</button>
+      </footer>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@2.5.0/dist/pptxgen.bundle.js"></script>
+<!-- script src="/assets/pptxgen-2.5.0.bundle.js"></script -->
+
+<script>
+function formatDate(date) {
+  var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+  var nextSunday = new Date(date.getFullYear(), date.getMonth(), date.getDate() + (7-date.getDay()));
+  var day = nextSunday.getDate();
+  var monthIndex = nextSunday.getMonth();
+  var year = nextSunday.getFullYear();
+
+  return monthNames[monthIndex] + '-' + day + '-' + year;
+}
+//console.log(formatDate(new Date()));
+
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
+
+function openTab(evt, tabId) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabId).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+function createThemes(pptx) {
+    //for (var i=0; i<10; i++) {
+    //    pptx.defineSlideMaster({
+    //        title: 'THEME_' + i,
+    //        bkgd: { path: 'http://laoli2008.github.io/images/' + i + '.jpg' },
+    //    });
+    //}
+
+    //var bkcolors = shuffle([ '0088CC', '36ABFF', '7AB8EE', '666666',
+    //    '003366', '0099CC', '336699', '666699', '669999', '339999' ]);
+    //return bkcolors;
+    return shuffle([...Array(40).keys()]);
+}
+
+var font24 = { align: 'c', fontSize: 24, fontFace: "微软雅黑", color:'FFFFFF' };
+var font44 = { align: 'c', fontSize: 44, fontFace: "微软雅黑", color:'FFFFFF' };
+var font48 = { align: 'c', fontSize: 48, fontFace: "微软雅黑", color:'FFFFFF' };
+var font64 = { align: 'c', fontSize: 64, fontFace: "微软雅黑", color:'FFFFFF' };
+
+var purples = [ '#7719aa', '#68217a', '#563d7c' ];
+var bkcolor = purples[Math.floor(Math.random() * purples.length)];
+
+function createSong(pptx, song, theme) {
+    pptx.defineSlideMaster({
+        title: 'THEME_' + theme,
+        bkgd: { path: 'http://laoli2008.github.io/images/best/' + theme + '.jpg' },
+    });
+
+    var pages = song.split('\n\n');
+    for (var p=0; p<pages.length; p++) {
+        var slide = pptx.addNewSlide('THEME_' + theme);
+        var text = pages[p];
+        var lines = text.split('\n');
+        var textcolor = 'FFFFFF';
+
+      //slide.back = theme;
+      //slide.color = 'FFFFFF';
+
+        if (p == 0 && lines.length == 2) {
+            slide.addText(
+                [
+                    { text: lines[0], options: font48 },
+                    { text: lines[1], options: font24 }
+                ],
+                { x: 0, y: 0, w: '100%', h: '80%' }
+            );
+        } else {
+            slide.addText(text, {
+                align:     'c',
+                x:         0,
+                y:         0,
+                w:         '100%',
+                h:         '80%',
+                fontSize:  48,
+                fontFace:  "微软雅黑",
+                breakLine: true,
+                color:     textcolor
+            });
+        }
+    }
+}
+
+function createPrelude(pptx) {
+    var slide = pptx.addNewSlide();
+
+    slide.back = bkcolor;
+    slide.color = 'FFFFFF';
+
+    var lines = [ '安靜默禱' ];
+
+    slide.addText(
+        [
+            { text: lines[0], options: font64 },
+        ],
+        { x: 0, y: 0, w: '100%', h: '80%' }
+    );
+}
+
+function createOverture(pptx) {
+    var slide = pptx.addNewSlide();
+
+    slide.back = bkcolor;
+    slide.color = 'FFFFFF';
+
+    var lines = [
+        '『主在聖殿中』',
+        '(哈巴谷書2:20)',
+        '主在聖殿中，主在聖殿中，',
+        '普天下的人，在主面前都應當',
+        '肅靜，肅靜，肅靜，',
+        '應當肅靜。阿們。'
+    ];
+
+    slide.addText(
+        [
+            { text: lines[0], options: font44 },
+            { text: lines[1], options: font24 },
+            { text: '',       options: font44 },
+            { text: lines[2], options: font44 },
+            { text: lines[3], options: font44 },
+            { text: lines[4], options: font44 },
+            { text: lines[5], options: font44 },
+        ],
+        { x: 0, y: 0, w: '100%', h: '90%' }
+    );
+}
+
+function createOffering(pptx) {
+    var slide = pptx.addNewSlide();
+
+    slide.back = bkcolor;
+    slide.color = 'FFFFFF';
+
+    var lines = [
+        '獻 禮 文',
+        '(歷代志上29:14下)',
+        '萬物都是從主而來，',
+        '我們把從主而來的，',
+        '獻給主。阿們。',
+    ];
+
+    slide.addText(
+        [
+            { text: lines[0], options: font44 },
+            { text: lines[1], options: font24 },
+            { text: '',       options: font44 },
+            { text: lines[2], options: font44 },
+            { text: lines[3], options: font44 },
+            { text: lines[4], options: font44 },
+        ],
+        { x: 0, y: 0, w: '100%', h: '80%' }
+    );
+}
+
+function createTrinity(pptx) {
+    var slide = pptx.addNewSlide();
+
+    slide.back = bkcolor;
+    slide.color = 'FFFFFF';
+
+    var lines = [
+        '三 一 頌',
+        '普天之下，萬國萬民，',
+        '齊聲讚美，父子聖靈，',
+        '三位一體，同榮同尊，',
+        '萬有之源，萬福之本。',
+        '阿們。',
+    ];
+
+    slide.addText(
+        [
+            { text: lines[0], options: font44 },
+            { text: ' ',      options: font24 },
+            { text: lines[1], options: font44 },
+            { text: lines[2], options: font44 },
+            { text: lines[3], options: font44 },
+            { text: lines[4], options: font44 },
+            { text: lines[5], options: font44 },
+        ],
+        { x: 0, y: 0, w: '100%', h: '90%' }
+    );
+}
+
+function createGlory(pptx) {
+    var slide = pptx.addNewSlide();
+
+    slide.back = bkcolor;
+    slide.color = 'FFFFFF';
+
+    var lines = [
+        '榮 耀 頌',
+        '但願榮耀歸與',
+        '父子聖靈，父子聖靈',
+        '起初這樣，現在這樣',
+        '以後也這樣，永無窮盡。',
+        '　阿們，阿們。',
+    ];
+
+    slide.addText(
+        [
+            { text: lines[0], options: font44 },
+            { text: ' ',      options: font24 },
+            { text: lines[1], options: font44 },
+            { text: lines[2], options: font44 },
+            { text: lines[3], options: font44 },
+            { text: lines[4], options: font44 },
+            { text: lines[5], options: font44 },
+        ],
+        { x: 0, y: 0, w: '100%', h: '90%' }
+    );
+}
+
+function createMessage(pptx) {
+    var slide = pptx.addNewSlide();
+
+    slide.back = bkcolor;
+    slide.color = 'FFFFFF';
+
+    var lines = [
+        '牧區訊息',
+        '彼此代禱',
+    ];
+
+    slide.addText(
+        [
+            { text: lines[0], options: font64 },
+            { text: lines[1], options: font64 },
+        ],
+        { x: 0, y: 0, w: '100%', h: '80%' }
+    );
+}
+</script>
+
+<script>
+$(document).ready(function() {
+    $("#download").click(function(e) {
+        var pptx = new PptxGenJS();
+
+        pptx.setLayout('LAYOUT_16x9');
+        // pptx.setLayout('LAYOUT_4x3');
+        // 'LAYOUT_16x10'
+        // 'LAYOUT_WIDE'
+        // 'LAYOUT_USER'
+
+        var themes = createThemes(pptx);
+
+        createPrelude(pptx);
+        createOverture(pptx);
+
+        for (var i=0; i<=9; i++) {
+            var song = $('#tab' + i + ' textarea').val();
+            if (song.length > 2) {
+                createSong(pptx, song, themes[i]);
+            }
+            if (i == 2) {
+                createOffering(pptx);
+            }
+        }
+
+        createTrinity(pptx);
+        createGlory(pptx);
+        createMessage(pptx);
+
+        pptx.save(formatDate(new Date()));
+    })
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+});
+</script>
+</body>
+</html>
